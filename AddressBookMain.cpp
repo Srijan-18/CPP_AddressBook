@@ -8,4 +8,6 @@ void presentWelcomeMessage(){
 int main()
 {
     presentWelcomeMessage();
+
+    return 0;
 }
