@@ -12,4 +12,11 @@ public:
         getline(cin, input);
         return input;
     }
+
+    int getIntegerInputFor(string field) {
+        int input;
+        cout << "\nEnter " << field << " : ";
+        cin >> input;
+        return input;
+    }
 };
