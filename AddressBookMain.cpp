@@ -7,17 +7,15 @@ void presentWelcomeMessage()
     std::cout << "\n\t\t\t**** WELCOME TO ADDRESS BOOK PROGRAM ****" << std::endl;
 }
 
-Person getPersonFromUser()
+Person getPersonDetails()
 {
-    InputUtility inputUtility;
-
-    std::string firstName = inputUtility.getStringInputfor("First Name");
-    std::string lastName = inputUtility.getStringInputfor("Last Name");
-    std::string address = inputUtility.getStringInputfor("Address");
-    std::string city = inputUtility.getStringInputfor("City");
-    std::string state = inputUtility.getStringInputfor("State");
-    std::string phoneNumber = inputUtility.getStringInputfor("Phone Number");
-    int zip = inputUtility.getIntegerInputFor("Zip Code");
+    std::string firstName = "Srijan";
+    std::string lastName = "Mishra";
+    std::string address = "My Address";
+    std::string city = "My city";
+    std::string state = "My State";
+    std::string phoneNumber = "9876543210";
+    int zip = 876543;
 
     Person person(firstName, lastName, address, city, state, zip, phoneNumber);
 
@@ -27,7 +25,7 @@ Person getPersonFromUser()
 void addPerson()
 {
     AddressBook addressBook;
-    addressBook.addPerson(getPersonFromUser());
+    addressBook.addPerson(getPersonDetails());
 
     addressBook.printAddressBook();
 }
