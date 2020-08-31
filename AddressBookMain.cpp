@@ -1,27 +1,23 @@
 #include <iostream>
-#include "Person.cpp"
+#include "AddressBook.cpp"
 #include "InputUtility.cpp"
-
-using namespace std;
 
 void presentWelcomeMessage()
 {
-    cout << "\n\t\t\t**** WELCOME TO ADDRESS BOOK PROGRAM ****" << endl;
+    std::cout << "\n\t\t\t**** WELCOME TO ADDRESS BOOK PROGRAM ****" << std::endl;
 }
 
 Person getPersonFromUser()
 {
     InputUtility inputUtility;
-    
-    string firstName = inputUtility.getStringInputfor("First Name");
-    string lastName = inputUtility.getStringInputfor("Last Name");
-    string address = inputUtility.getStringInputfor("Address");
-    string city = inputUtility.getStringInputfor("City");
-    string state = inputUtility.getStringInputfor("State");
-    string phoneNumber = inputUtility.getStringInputfor("Phone Number");
-    int zip;
-    cout << "\nEnter Zipcode : ";
-    cin >> zip;
+
+    std::string firstName = inputUtility.getStringInputfor("First Name");
+    std::string lastName = inputUtility.getStringInputfor("Last Name");
+    std::string address = inputUtility.getStringInputfor("Address");
+    std::string city = inputUtility.getStringInputfor("City");
+    std::string state = inputUtility.getStringInputfor("State");
+    std::string phoneNumber = inputUtility.getStringInputfor("Phone Number");
+    int zip = inputUtility.getIntegerInputFor("Zip Code");
 
     Person person(firstName, lastName, address, city, state, zip, phoneNumber);
 
@@ -30,9 +26,10 @@ Person getPersonFromUser()
 
 void addPerson()
 {
-    Person person = getPersonFromUser();
+    AddressBook addressBook;
+    addressBook.addPerson(getPersonFromUser());
 
-    person.printDetails();
+    addressBook.printAddressBook();
 }
 
 int main()

@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Person.cpp"
-using namespace std;
 
 class AddressBook
 {
@@ -11,10 +10,16 @@ public:
     AddressBook()
     {
     }
-    void addPerson(Person *);
+    void addPerson(Person);
+    void printAddressBook();
 };
 
-void AddressBook::addPerson(Person *person)
+void AddressBook::addPerson(Person person)
 {
-    this->person = *person;
+    this->person = person;
+}
+
+void AddressBook::printAddressBook()
+{
+    person.printDetails();
 }
