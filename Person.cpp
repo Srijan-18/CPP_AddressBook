@@ -16,6 +16,7 @@ class Person
 public:
     Person() {}
     Person(string, string, string, string, string, string, string);
+    ~Person();
     friend class AddressBook;
 };
 
@@ -32,7 +33,7 @@ Person::Person(string firstName, string lastName, string address, string city, s
 
 void Person::printDetails()
 {
-    cout << "\n\t#-------------------------------------------#";
+    cout << "\n\t#-------------------------------------------#\n";
     cout << "\nFirst Name : " << firstName
          << "\nLast Name : " << lastName
          << "\nPhone Number : " << phoneNumber
@@ -41,4 +42,15 @@ void Person::printDetails()
          << "\nState : " << state
          << "\nZip : " << zip
          << endl;
+}
+
+Person::~Person()
+{
+    firstName.clear();
+    lastName.clear();
+    address.clear();
+    city.clear();
+    state.clear();
+    zip.clear();
+    phoneNumber.clear();
 }

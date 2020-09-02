@@ -5,6 +5,7 @@
 using namespace std;
 
 AddressBook addressBook;
+InputUtility inputUtility;
 
 void presentWelcomeMessage()
 {
@@ -13,15 +14,13 @@ void presentWelcomeMessage()
 
 Person getPersonDetails()
 {
-    InputUtility inputUtility;
-
     string firstName = inputUtility.getStringInputfor("First Name");
     string lastName = inputUtility.getStringInputfor("Last Name");
+    string phoneNumber = inputUtility.getStringInputfor("Phone Number");
     string address = inputUtility.getStringInputfor("Address");
     string city = inputUtility.getStringInputfor("City");
     string state = inputUtility.getStringInputfor("State");
     string zip = inputUtility.getStringInputfor("Zip Code");
-    string phoneNumber = inputUtility.getStringInputfor("Phone Number");
 
     Person person(firstName, lastName, address, city, state, zip, phoneNumber);
 
@@ -57,18 +56,45 @@ void displayAddressBook()
     addressBook.printAddressBook();
 }
 
-void performOperations()
+void performOperations(int operationChoice)
 {
-    addressBook.addPerson(getPersonDetails());
-    displayAddressBook();
-    int choice = getUpdateChoice();
-    addressBook.updateDetails(choice, getNewValue());
-    displayAddressBook();
+    enum operationChoices
+    {
+        UPDATE = 1,
+        DELETE
+    };
+   int updateFieldChoice ;
+    switch (operationChoice)
+    {
+    case UPDATE:
+        updateFieldChoice = getUpdateChoice();
+        addressBook.updateDetails(updateFieldChoice, getNewValue());
+        displayAddressBook();
+        break;
+
+    case DELETE:
+        addressBook.deletePerson(inputUtility.getStringInputfor("Name"));
+        break;
+
+    default:
+        cout << "\n#### INVALID INPUT ####";    
+    }
+}
+
+void presentOperationChoices()
+{
+    cout << "\nEnter 1 to update\nEnter 2 to delete\nYOUR CHOICE: ";
+    int choice;
+    cin >> choice;
+    cin.get();
+
+    performOperations(choice);
 }
 
 int main()
 {
     presentWelcomeMessage();
-    performOperations();
+    addressBook.addPerson(getPersonDetails());
+    presentOperationChoices();
     return 0;
 }

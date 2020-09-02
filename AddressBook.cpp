@@ -14,6 +14,8 @@ private:
         PHONE_NUMBER
     };
 
+    bool isPresent(string name);
+
 public:
     AddressBook()
     {
@@ -21,6 +23,7 @@ public:
     void addPerson(Person);
     void printAddressBook();
     void updateDetails(int, string);
+    void deletePerson(string name);
 };
 
 void AddressBook::addPerson(Person person)
@@ -55,4 +58,20 @@ void AddressBook::updateDetails(int choice, string updatedValue)
 void AddressBook::printAddressBook()
 {
     person.printDetails();
+}
+
+bool AddressBook::isPresent(string name)
+{
+    return ((person.firstName + " " + person.lastName) == name);
+}
+
+void AddressBook::deletePerson(string name)
+{
+    if (!isPresent(name))
+    {
+        cout << "\nNo such person present.";
+        return;
+    }
+
+    person.~Person();
 }
