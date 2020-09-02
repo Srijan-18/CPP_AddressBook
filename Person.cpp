@@ -1,22 +1,25 @@
 #include <iostream>
 
+using namespace std;
+
 class Person
 {
-    std::string firstName;
-    std::string lastName;
-    std::string address;
-    std::string city;
-    std::string state;
-    int zip;
-    std::string phoneNumber;
+    string firstName;
+    string lastName;
+    string address;
+    string city;
+    string state;
+    string zip;
+    string phoneNumber;
+    void printDetails();
 
 public:
     Person() {}
-    Person(std::string, std::string, std::string, std::string, std::string, int, std::string);
-    void printDetails();
+    Person(string, string, string, string, string, string, string);
+    friend class AddressBook;
 };
 
-Person::Person(std::string firstName, std::string lastName, std::string address, std::string city, std::string state, int zip, std::string phoneNumber)
+Person::Person(string firstName, string lastName, string address, string city, string state, string zip, string phoneNumber)
 {
     this->firstName = firstName;
     this->lastName = lastName;
@@ -29,13 +32,13 @@ Person::Person(std::string firstName, std::string lastName, std::string address,
 
 void Person::printDetails()
 {
-    std::cout << "\n\t#-------------------------------------------#";
-    std::cout << "\nFirst Name : " << firstName
-              << "\nLast Name : " << lastName
-              << "\nPhone Number : " << phoneNumber
-              << "\nAddress : " << address
-              << "\nCity : " << city
-              << "\nState : " << state
-              << "\nZip : " << zip
-              << std::endl;
+    cout << "\n\t#-------------------------------------------#";
+    cout << "\nFirst Name : " << firstName
+         << "\nLast Name : " << lastName
+         << "\nPhone Number : " << phoneNumber
+         << "\nAddress : " << address
+         << "\nCity : " << city
+         << "\nState : " << state
+         << "\nZip : " << zip
+         << endl;
 }

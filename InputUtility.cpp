@@ -1,21 +1,15 @@
 #include <iostream>
 
+using namespace std;
+
 class InputUtility
 {
 public:
-    std::string getStringInputfor(std::string field)
+    string getStringInputfor(string field)
     {
-        std::string input;
-        std::cout << "\nEnter " << field << " : ";
-        getline(std::cin, input);
-        return input;
-    }
-
-    int getIntegerInputFor(std::string field)
-    {
-        int input;
-        std::cout << "\nEnter " << field << " : ";
-        std::cin >> input;
+        string input;
+        cout << "\nEnter " << field << " : ";
+        getline(cin, input);
         return input;
     }
 };
