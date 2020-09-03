@@ -31,6 +31,8 @@ public:
 
 void AddressBook::addPerson(Person person)
 {
+    if(person.firstName.length() == 0)
+        return;
     personCollection.push_back(person);
 }
 
