@@ -16,7 +16,6 @@ class Person
 public:
     Person() {}
     Person(string, string, string, string, string, string, string);
-    ~Person();
     friend class AddressBook;
 };
 
@@ -42,15 +41,4 @@ void Person::printDetails()
          << "\nState : " << state
          << "\nZip : " << zip
          << endl;
-}
-
-Person::~Person()
-{
-    firstName.clear();
-    lastName.clear();
-    address.clear();
-    city.clear();
-    state.clear();
-    zip.clear();
-    phoneNumber.clear();
 }
