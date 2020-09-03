@@ -40,6 +40,7 @@ void addPerson()
 
     addressBook.printAddressBook();
 }
+
 int getUpdateChoice()
 {
     int choice;
@@ -129,6 +130,7 @@ void presentOperationChoices()
         flag = choice > 0 && choice < 6;
     }
 }
+
 int main()
 {
     presentWelcomeMessage();
