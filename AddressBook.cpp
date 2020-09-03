@@ -1,9 +1,11 @@
 #include <iostream>
+#include <vector>
 #include "Person.cpp"
 
 class AddressBook
 {
 private:
+    vector<Person> personCollection;
     Person person;
     enum Choices
     {
@@ -28,7 +30,7 @@ public:
 
 void AddressBook::addPerson(Person person)
 {
-    this->person = person;
+    personCollection.push_back(person);   
 }
 
 void AddressBook::updateDetails(int choice, string updatedValue)
@@ -51,7 +53,6 @@ void AddressBook::updateDetails(int choice, string updatedValue)
         person.phoneNumber = updatedValue;
         break;
     default:
-        cout << "\nInvalid Input";
     }
 }
 
