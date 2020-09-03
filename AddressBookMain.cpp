@@ -102,6 +102,28 @@ void sortTheAddressBook()
     addressBook.sortAddressBook(sortChoice);
 }
 
+void printVector(vector<Person> requiredList)
+{
+    if (requiredList.size() == 0)
+    {
+        cout << "\n\n\t\t***** NO DATA TO DISPLAY *****\n";
+        return;
+    }
+
+    for (int personCounter = 0; personCounter < requiredList.size(); personCounter++)
+        requiredList[personCounter].printDetails();
+}
+
+void searchAndPrint()
+{
+    string cityName = inputUtility.getStringInputfor("City Name");
+    string stateName = inputUtility.getStringInputfor("State Name");
+
+    vector<Person> requiredList = addressBook.getPersonsByCityAndState(cityName, stateName);
+
+    printVector(requiredList);
+}
+
 void performOperations(int operationChoice)
 {
     enum operationChoices
@@ -110,7 +132,8 @@ void performOperations(int operationChoice)
         UPDATE,
         DELETE,
         DISPLAY,
-        SORT
+        SORT,
+        SEARCH
     };
 
     switch (operationChoice)
@@ -131,6 +154,8 @@ void performOperations(int operationChoice)
     case SORT:
         sortTheAddressBook();
         addressBook.printAddressBook();
+    case SEARCH:
+        searchAndPrint();
     }
 }
 
@@ -139,12 +164,12 @@ void presentOperationChoices()
     bool flag = true;
     while (flag)
     {
-        cout << "\nEnter 1 to add a person\nEnter 2 to update\nEnter 3 to delete\nEnter 4 to display whole AddressBook\nEnter 5 to sort \nAny other number to exit\n\nYOUR CHOICE: ";
+        cout << "\nEnter 1 to add a person\nEnter 2 to update\nEnter 3 to delete\nEnter 4 to display whole AddressBook\nEnter 5 to sort\nEnter 6 to search by CITY AND STATE\nAny other number to exit\n\nYOUR CHOICE: ";
         int choice;
         cin >> choice;
         cin.get();
         performOperations(choice);
-        flag = choice > 0 && choice < 6;
+        flag = choice > 0 && choice < 7;
     }
 }
 

@@ -11,11 +11,11 @@ class Person
     string state;
     string zip;
     string phoneNumber;
-    void printDetails();
 
 public:
     Person() {}
     Person(string, string, string, string, string, string, string);
+    void printDetails();
     friend class AddressBook;
 };
 

@@ -29,6 +29,7 @@ public:
     void deletePerson(string name);
     bool isPresent(string name);
     void sortAddressBook(int);
+    vector<Person> getPersonsByCityAndState(string, string);
 };
 
 void AddressBook::addPerson(Person person)
@@ -149,8 +150,17 @@ void AddressBook::sortAddressBook(int sortChoice)
         std::sort(personCollection.begin(), personCollection.end(), [](const Person &firstPerson, const Person &secondPerson) {
             return firstPerson.state < secondPerson.state;
         });
-        break; 
+        break;
     default:
-        cout <<"\n\n\t\t***** INVALID INPUT *****\n";       
+        cout << "\n\n\t\t***** INVALID INPUT *****\n";
     }
+}
+
+vector<Person> AddressBook::getPersonsByCityAndState(string cityName, string stateName)
+{
+    vector<Person> requiredList;
+    for (int personCounter = 0; personCounter < personCollection.size(); personCounter++)
+        if (personCollection[personCounter].city == cityName && personCollection[personCounter].state == stateName)
+            requiredList.push_back(personCollection[personCounter]);
+    return requiredList;
 }
