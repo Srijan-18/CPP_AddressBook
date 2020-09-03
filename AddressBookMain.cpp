@@ -56,7 +56,7 @@ void displayAddressBook()
     addressBook.printAddressBook();
 }
 
-bool setFlag(int updateFieldChoice)
+bool continueUpdateProcess(int updateFieldChoice)
 {
     return (updateFieldChoice > 0 && updateFieldChoice < 6) ? true : false;
 }
@@ -69,13 +69,14 @@ void updateAPerson(string name)
         return;
     }
 
-    bool flag = true;
-    while (flag)
+    while (true)
     {
         int updateFieldChoice;
         updateFieldChoice = getUpdateChoice();
-        addressBook.updateDetails(updateFieldChoice, getNewValue());
-        flag = setFlag(updateFieldChoice);
+        if(!continueUpdateProcess(updateFieldChoice))
+            break;
+        addressBook.updateDetails(updateFieldChoice, name, getNewValue());
+        
     }
 }
 
@@ -85,7 +86,8 @@ void performOperations(int operationChoice)
     {
         ADD_PERSON = 1,
         UPDATE,
-        DELETE
+        DELETE,
+        DISPLAY
     };
 
     switch (operationChoice)
@@ -101,9 +103,8 @@ void performOperations(int operationChoice)
     case DELETE:
         addressBook.deletePerson(inputUtility.getStringInputfor("Name"));
         break;
-
-    default:
-        cout << "\n#### INVALID INPUT ####";
+    case DISPLAY:
+        addressBook.printAddressBook();
     }
 }
 
@@ -112,12 +113,12 @@ void presentOperationChoices()
     bool flag = true;
     while (flag)
     {
-        cout << "\nEnter 1 to add a person\nEnter 2 to update\nEnter 3 to delete\nAny other number to exit\nYOUR CHOICE: ";
+        cout << "\nEnter 1 to add a person\nEnter 2 to update\nEnter 3 to delete\nEnter 4 to display whole AddressBook\nAny other number to exit\nYOUR CHOICE: ";
         int choice;
         cin >> choice;
         cin.get();
         performOperations(choice);
-        flag = choice > 0 && choice < 4;
+        flag = choice > 0 && choice < 5;
     }
 }
 int main()

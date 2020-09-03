@@ -6,7 +6,6 @@ class AddressBook
 {
 private:
     vector<Person> personCollection;
-    Person person;
     enum Choices
     {
         ADDRESS = 1,
@@ -17,6 +16,7 @@ private:
     };
 
     void removeIfPresentPersonAt(string, int);
+    int getPersonIndexByName(string);
 
 public:
     AddressBook()
@@ -24,7 +24,7 @@ public:
     }
     void addPerson(Person);
     void printAddressBook();
-    void updateDetails(int, string);
+    void updateDetails(int, string, string);
     void deletePerson(string name);
     bool isPresent(string name);
 };
@@ -34,32 +34,37 @@ void AddressBook::addPerson(Person person)
     personCollection.push_back(person);
 }
 
-void AddressBook::updateDetails(int choice, string updatedValue)
+void AddressBook::updateDetails(int choice, string name, string updatedValue)
 {
+    int personIndex = getPersonIndexByName(name);
     switch (choice)
     {
     case ADDRESS:
-        person.address = updatedValue;
+        personCollection[personIndex].address = updatedValue;
         break;
     case CITY:
-        person.city = updatedValue;
+        personCollection[personIndex].city = updatedValue;
         break;
     case STATE:
-        person.state = updatedValue;
+        personCollection[personIndex].state = updatedValue;
         break;
     case ZIPCODE:
-        person.zip = updatedValue;
+        personCollection[personIndex].zip = updatedValue;
         break;
     case PHONE_NUMBER:
-        person.phoneNumber = updatedValue;
+        personCollection[personIndex].phoneNumber = updatedValue;
         break;
-    default:
     }
 }
 
 void AddressBook::printAddressBook()
 {
-    person.printDetails();
+    if(personCollection.size() == 0){
+        cout << "\n\n\t\t********** NO CONTACTS TO DISPLAY **********\n";
+        return;
+    }
+    for (int personCounter = 0; personCounter < personCollection.size(); personCounter++)
+        personCollection[personCounter].printDetails();
 }
 
 bool AddressBook::isPresent(string name)
@@ -87,4 +92,15 @@ void AddressBook::removeIfPresentPersonAt(string name, int position)
 {
     if ((personCollection[position].firstName + " " + personCollection[position].lastName) == name)
         personCollection.erase(personCollection.begin() + position);
+}
+
+int AddressBook::getPersonIndexByName(string name) {
+    int position = -1;
+    for (int personCounter = 0; personCounter < personCollection.size(); personCounter++)
+        if ((personCollection[personCounter].firstName + " " + personCollection[personCounter].lastName) == name)
+        {
+            position = personCounter;
+            break;
+        }
+    return position;
 }
