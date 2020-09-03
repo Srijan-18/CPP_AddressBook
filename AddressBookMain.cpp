@@ -16,8 +16,9 @@ Person getPersonDetails()
 {
     string firstName = inputUtility.getStringInputfor("First Name");
     string lastName = inputUtility.getStringInputfor("Last Name");
-    if(addressBook.isPresent(firstName + " " + lastName)){
-         cout << "\n\n\t\t********** PERSON ALREADY PRESENT **********\n";
+    if (addressBook.isPresent(firstName + " " + lastName))
+    {
+        cout << "\n\n\t\t********** PERSON ALREADY PRESENT **********\n";
         Person person;
         return person;
     }
@@ -78,10 +79,9 @@ void updateAPerson(string name)
     {
         int updateFieldChoice;
         updateFieldChoice = getUpdateChoice();
-        if(!continueUpdateProcess(updateFieldChoice))
+        if (!continueUpdateProcess(updateFieldChoice))
             break;
         addressBook.updateDetails(updateFieldChoice, name, getNewValue());
-        
     }
 }
 
@@ -92,7 +92,8 @@ void performOperations(int operationChoice)
         ADD_PERSON = 1,
         UPDATE,
         DELETE,
-        DISPLAY
+        DISPLAY,
+        SORT_BY_NAME
     };
 
     switch (operationChoice)
@@ -104,11 +105,13 @@ void performOperations(int operationChoice)
         updateAPerson(inputUtility.getStringInputfor("Name"));
         displayAddressBook();
         break;
-
     case DELETE:
         addressBook.deletePerson(inputUtility.getStringInputfor("Name"));
         break;
     case DISPLAY:
+        addressBook.printAddressBook();
+    case SORT_BY_NAME:
+        addressBook.sortByName();
         addressBook.printAddressBook();
     }
 }
@@ -118,12 +121,12 @@ void presentOperationChoices()
     bool flag = true;
     while (flag)
     {
-        cout << "\nEnter 1 to add a person\nEnter 2 to update\nEnter 3 to delete\nEnter 4 to display whole AddressBook\nAny other number to exit\nYOUR CHOICE: ";
+        cout << "\nEnter 1 to add a person\nEnter 2 to update\nEnter 3 to delete\nEnter 4 to display whole AddressBook\nEnter 5 to sort by NAME\nAny other number to exit\nYOUR CHOICE: ";
         int choice;
         cin >> choice;
         cin.get();
         performOperations(choice);
-        flag = choice > 0 && choice < 5;
+        flag = choice > 0 && choice < 6;
     }
 }
 int main()

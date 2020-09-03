@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "Person.cpp"
 
 class AddressBook
@@ -27,11 +28,12 @@ public:
     void updateDetails(int, string, string);
     void deletePerson(string name);
     bool isPresent(string name);
+    void sortByName();
 };
 
 void AddressBook::addPerson(Person person)
 {
-    if(person.firstName.length() == 0)
+    if (person.firstName.length() == 0)
         return;
     personCollection.push_back(person);
 }
@@ -61,7 +63,8 @@ void AddressBook::updateDetails(int choice, string name, string updatedValue)
 
 void AddressBook::printAddressBook()
 {
-    if(personCollection.size() == 0){
+    if (personCollection.size() == 0)
+    {
         cout << "\n\n\t\t********** NO CONTACTS TO DISPLAY **********\n";
         return;
     }
@@ -96,7 +99,8 @@ void AddressBook::removeIfPresentPersonAt(string name, int position)
         personCollection.erase(personCollection.begin() + position);
 }
 
-int AddressBook::getPersonIndexByName(string name) {
+int AddressBook::getPersonIndexByName(string name)
+{
     int position = -1;
     for (int personCounter = 0; personCounter < personCollection.size(); personCounter++)
         if ((personCollection[personCounter].firstName + " " + personCollection[personCounter].lastName) == name)
@@ -105,4 +109,19 @@ int AddressBook::getPersonIndexByName(string name) {
             break;
         }
     return position;
+}
+
+void AddressBook::sortByName()
+{
+    if (personCollection.size() <= 0)
+    {
+        cout << "\n\t\t***** NO ELEMENTS TO SORT *****\n";
+        return;
+    }
+
+    std::sort(personCollection.begin(), personCollection.end(), [](const Person& firstPerson, const Person& secondPerson) {
+       if (firstPerson.firstName == secondPerson.firstName)
+        return firstPerson.lastName < secondPerson.lastName;
+    return firstPerson.firstName < secondPerson.firstName;
+   });
 }
