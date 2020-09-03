@@ -16,7 +16,7 @@ private:
         PHONE_NUMBER
     };
 
-    bool isPresent(string name);
+    void removeIfPresentPersonAt(string, int);
 
 public:
     AddressBook()
@@ -26,11 +26,12 @@ public:
     void printAddressBook();
     void updateDetails(int, string);
     void deletePerson(string name);
+    bool isPresent(string name);
 };
 
 void AddressBook::addPerson(Person person)
 {
-    personCollection.push_back(person);   
+    personCollection.push_back(person);
 }
 
 void AddressBook::updateDetails(int choice, string updatedValue)
@@ -63,7 +64,11 @@ void AddressBook::printAddressBook()
 
 bool AddressBook::isPresent(string name)
 {
-    return ((person.firstName + " " + person.lastName) == name);
+    for (int personCounter = 0; personCounter < personCollection.size(); personCounter++)
+        if ((personCollection[personCounter].firstName + " " + personCollection[personCounter].lastName) == name)
+            return true;
+
+    return false;
 }
 
 void AddressBook::deletePerson(string name)
@@ -74,5 +79,12 @@ void AddressBook::deletePerson(string name)
         return;
     }
 
-    person.~Person();
+    for (int personCounter = 0; personCounter < personCollection.size(); personCounter++)
+        removeIfPresentPersonAt(name, personCounter);
+}
+
+void AddressBook::removeIfPresentPersonAt(string name, int position)
+{
+    if ((personCollection[position].firstName + " " + personCollection[position].lastName) == name)
+        personCollection.erase(personCollection.begin() + position);
 }
