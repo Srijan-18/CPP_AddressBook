@@ -37,7 +37,7 @@ void addPerson()
 int getUpdateChoice()
 {
     int choice;
-    cout << "\nEnter 1 to update address\nEnter 2 to update city\nEnter 3 to update state\nEnter 4 to update zipcode\nEnter 5 to update phoneNumber\nYOUR CHOICE: ";
+    cout << "\nEnter 1 to update address\nEnter 2 to update city\nEnter 3 to update state\nEnter 4 to update zipcode\nEnter 5 to update phoneNumber\nAny other number to go back\nYOUR CHOICE: ";
     cin >> choice;
     cin.get();
     return choice;
@@ -56,19 +56,45 @@ void displayAddressBook()
     addressBook.printAddressBook();
 }
 
+bool setFlag(int updateFieldChoice)
+{
+    return (updateFieldChoice > 0 && updateFieldChoice < 6) ? true : false;
+}
+
+void updateAPerson(string name)
+{
+    if (!addressBook.isPresent(name))
+    {
+        cout << "No Such Person Present";
+        return;
+    }
+
+    bool flag = true;
+    while (flag)
+    {
+        int updateFieldChoice;
+        updateFieldChoice = getUpdateChoice();
+        addressBook.updateDetails(updateFieldChoice, getNewValue());
+        flag = setFlag(updateFieldChoice);
+    }
+}
+
 void performOperations(int operationChoice)
 {
     enum operationChoices
     {
-        UPDATE = 1,
+        ADD_PERSON = 1,
+        UPDATE,
         DELETE
     };
-   int updateFieldChoice ;
+
     switch (operationChoice)
     {
+    case ADD_PERSON:
+        addressBook.addPerson(getPersonDetails());
+        break;
     case UPDATE:
-        updateFieldChoice = getUpdateChoice();
-        addressBook.updateDetails(updateFieldChoice, getNewValue());
+        updateAPerson(inputUtility.getStringInputfor("Name"));
         displayAddressBook();
         break;
 
@@ -77,20 +103,23 @@ void performOperations(int operationChoice)
         break;
 
     default:
-        cout << "\n#### INVALID INPUT ####";    
+        cout << "\n#### INVALID INPUT ####";
     }
 }
 
 void presentOperationChoices()
 {
-    cout << "\nEnter 1 to update\nEnter 2 to delete\nYOUR CHOICE: ";
-    int choice;
-    cin >> choice;
-    cin.get();
-
-    performOperations(choice);
+    bool flag = true;
+    while (flag)
+    {
+        cout << "\nEnter 1 to add a person\nEnter 2 to update\nEnter 3 to delete\nAny other number to exit\nYOUR CHOICE: ";
+        int choice;
+        cin >> choice;
+        cin.get();
+        performOperations(choice);
+        flag = choice > 0 && choice < 4;
+    }
 }
-
 int main()
 {
     presentWelcomeMessage();
