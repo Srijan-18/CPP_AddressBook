@@ -86,6 +86,22 @@ void updateAPerson(string name)
     }
 }
 
+int getSortChoice()
+{
+    cout << "\n\n\t\t***** SORT MENU *****\n";
+    cout << "\nEnter 1 to sort by PERSON NAME\nEnter 2 to sort by ZIP\nEnter 3 to sort by CITY NAME\nEnter 4 to sort by STATE NAME\n\nYOUR CHOICE: ";
+    int sortChoice;
+    cin >> sortChoice;
+    cin.get();
+    return sortChoice;
+}
+
+void sortTheAddressBook()
+{
+    int sortChoice = getSortChoice();
+    addressBook.sortAddressBook(sortChoice);
+}
+
 void performOperations(int operationChoice)
 {
     enum operationChoices
@@ -94,7 +110,7 @@ void performOperations(int operationChoice)
         UPDATE,
         DELETE,
         DISPLAY,
-        SORT_BY_NAME
+        SORT
     };
 
     switch (operationChoice)
@@ -111,8 +127,9 @@ void performOperations(int operationChoice)
         break;
     case DISPLAY:
         addressBook.printAddressBook();
-    case SORT_BY_NAME:
-        addressBook.sortByName();
+        break;
+    case SORT:
+        sortTheAddressBook();
         addressBook.printAddressBook();
     }
 }
@@ -122,7 +139,7 @@ void presentOperationChoices()
     bool flag = true;
     while (flag)
     {
-        cout << "\nEnter 1 to add a person\nEnter 2 to update\nEnter 3 to delete\nEnter 4 to display whole AddressBook\nEnter 5 to sort by NAME\nAny other number to exit\nYOUR CHOICE: ";
+        cout << "\nEnter 1 to add a person\nEnter 2 to update\nEnter 3 to delete\nEnter 4 to display whole AddressBook\nEnter 5 to sort \nAny other number to exit\n\nYOUR CHOICE: ";
         int choice;
         cin >> choice;
         cin.get();

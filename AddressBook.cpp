@@ -28,7 +28,7 @@ public:
     void updateDetails(int, string, string);
     void deletePerson(string name);
     bool isPresent(string name);
-    void sortByName();
+    void sortAddressBook(int);
 };
 
 void AddressBook::addPerson(Person person)
@@ -111,7 +111,7 @@ int AddressBook::getPersonIndexByName(string name)
     return position;
 }
 
-void AddressBook::sortByName()
+void AddressBook::sortAddressBook(int sortChoice)
 {
     if (personCollection.size() <= 0)
     {
@@ -119,9 +119,38 @@ void AddressBook::sortByName()
         return;
     }
 
-    std::sort(personCollection.begin(), personCollection.end(), [](const Person& firstPerson, const Person& secondPerson) {
-       if (firstPerson.firstName == secondPerson.firstName)
-        return firstPerson.lastName < secondPerson.lastName;
-    return firstPerson.firstName < secondPerson.firstName;
-   });
+    enum sortChoices
+    {
+        PERSON_NAME = 1,
+        ZIP,
+        CITY_NAME,
+        STATE_NAME
+    };
+    switch (sortChoice)
+    {
+    case PERSON_NAME:
+        std::sort(personCollection.begin(), personCollection.end(), [](const Person &firstPerson, const Person &secondPerson) {
+            if (firstPerson.firstName == secondPerson.firstName)
+                return firstPerson.lastName < secondPerson.lastName;
+            return firstPerson.firstName < secondPerson.firstName;
+        });
+        break;
+    case ZIP:
+        std::sort(personCollection.begin(), personCollection.end(), [](const Person &firstPerson, const Person &secondPerson) {
+            return firstPerson.zip < secondPerson.zip;
+        });
+        break;
+    case CITY_NAME:
+        std::sort(personCollection.begin(), personCollection.end(), [](const Person &firstPerson, const Person &secondPerson) {
+            return firstPerson.city < secondPerson.city;
+        });
+        break;
+    case STATE_NAME:
+        std::sort(personCollection.begin(), personCollection.end(), [](const Person &firstPerson, const Person &secondPerson) {
+            return firstPerson.state < secondPerson.state;
+        });
+        break; 
+    default:
+        cout <<"\n\n\t\t***** INVALID INPUT *****\n";       
+    }
 }
