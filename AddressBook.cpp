@@ -30,6 +30,8 @@ public:
     bool isPresent(string name);
     void sortAddressBook(int);
     vector<Person> getPersonsByCityAndState(string, string);
+    vector<Person> getPersonsByState(string);
+    vector<Person> getPersonsByCity(string);
 };
 
 void AddressBook::addPerson(Person person)
@@ -161,6 +163,24 @@ vector<Person> AddressBook::getPersonsByCityAndState(string cityName, string sta
     vector<Person> requiredList;
     for (int personCounter = 0; personCounter < personCollection.size(); personCounter++)
         if (personCollection[personCounter].city == cityName && personCollection[personCounter].state == stateName)
+            requiredList.push_back(personCollection[personCounter]);
+    return requiredList;
+}
+
+vector<Person> AddressBook::getPersonsByCity(string cityName)
+{
+    vector<Person> requiredList;
+    for (int personCounter = 0; personCounter < personCollection.size(); personCounter++)
+        if (personCollection[personCounter].city == cityName)
+            requiredList.push_back(personCollection[personCounter]);
+    return requiredList;
+}
+
+vector<Person> AddressBook::getPersonsByState(string stateName)
+{
+    vector<Person> requiredList;
+    for (int personCounter = 0; personCounter < personCollection.size(); personCounter++)
+        if (personCollection[personCounter].state == stateName)
             requiredList.push_back(personCollection[personCounter]);
     return requiredList;
 }
