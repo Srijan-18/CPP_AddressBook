@@ -16,6 +16,11 @@ Person getPersonDetails()
 {
     string firstName = inputUtility.getStringInputfor("First Name");
     string lastName = inputUtility.getStringInputfor("Last Name");
+    if(addressBook.isPresent(firstName + " " + lastName)){
+         cout << "\n\n\t\t********** PERSON ALREADY PRESENT **********\n";
+        Person person;
+        return person;
+    }
     string phoneNumber = inputUtility.getStringInputfor("Phone Number");
     string address = inputUtility.getStringInputfor("Address");
     string city = inputUtility.getStringInputfor("City");
